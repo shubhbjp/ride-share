@@ -1,0 +1,31 @@
+<form action="<%=vehicle_create_path%>" accept-charset="UTF-8" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div>
+    <label for="Reg No">Registration No</label><br>
+    <input type="text" name="no">
+  </div>
+  <div>
+    <label for="Users">Belongs to user</label><br>
+    <%= select_tag(:user_mobile, options_for_select(@user_mobile)) %>
+  </div>
+  <div>
+    <label for="brand">Brand</label><br>
+    <input type="text" name="brand">
+  </div>
+  <div>
+    <label for="No of wheels">No of wheels</label><br>
+    <input type="number" name="no_of_wheels">
+  </div>
+  <div>
+    <label for="AC">AC</label><br>
+    <input type="radio" name="ac" value="N"> NO
+    <input type="radio" name="ac" value="Y"> YES
+  </div>
+  <div>
+    <label for="seats">Seats</label><br>
+    <input type="number" name="seats">
+  </div>
+  <div>
+    <input type="submit" name="commit" value="Create Vehicle" data-disable-with="Create Vehicle">
+  </div>
+</form>

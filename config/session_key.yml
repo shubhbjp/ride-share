@@ -1,0 +1,19 @@
+development:
+  user_list: :user_list
+  vehicle_list: :vehicle_list
+  offer_ride: :offer_ride
+  selected_ride: :user_selected_ride
+  
+
+test:
+  user_list: :test_user_list
+  vehicle_list: :test_vehicle_list
+  offer_ride: :test_offer_ride
+  selected_ride: :test_selected_ride
+
+production:
+  user_list: :user_list
+  vehicle_list: :vehicle_list
+  offer_ride: :offer_ride
+  selected_ride: :user_selected_ride
+

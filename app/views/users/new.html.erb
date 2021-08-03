@@ -1,0 +1,29 @@
+<form action="<%=users_create_path%>" accept-charset="UTF-8" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div>
+    <label for="Name">Name</label><br>
+    <input type="text" name="name">
+  </div>
+  <div>
+    <label for="Age">Age</label><br>
+    <input type="number" name="age">
+  </div>
+  <div>
+    <label for="Gender">Gender</label><br>
+    <input type="radio" name="gender" value="M"> Male
+    <input type="radio" name="gender" value="F"> FeMale
+  </div>
+  <div>
+    <label for="mobile">Mobile</label><br>
+    <input type="text" name="mobile" >
+  </div>
+
+  <div>
+    <label for="Address">Address</label><br>
+    <textarea name="address"></textarea>
+  </div>
+
+  <div>
+    <input type="submit" name="commit" value="Create User" data-disable-with="Create User">
+  </div>
+</form>

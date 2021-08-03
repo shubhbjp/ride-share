@@ -1,0 +1,22 @@
+<table>
+<tr>
+<th> Reg.No </th>
+<th> Brand </th>
+<th> Seats </th>
+<th> AC </th>
+<th> Owner </th>
+<th> Owner's Mobile </th>
+
+</tr>
+<%@vehicles.each do |u|%>
+<tr>
+	<td> <%=u['reg_no']%></td>
+	<td> <%=u['brand']%></td>
+	<td> <%=u['seats']%></td>
+	<td> <%=u['ac']%></td>
+	<td> <%=@users[u['user_mobile']]['name']%></td>
+	<td> <%=u['user_mobile']%></td>
+</tr>
+<%end%>
+</table>
+<a href = "<%=root_path%>"> Home</a>

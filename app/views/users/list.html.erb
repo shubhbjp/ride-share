@@ -1,0 +1,19 @@
+<table>
+<tr>
+<th> Name </th>
+<th> Age </th>
+<th> Gender </th>
+<th> Mobile </th>
+<th> Address </th>
+</tr>
+<%@users.each do |u|%>
+<tr>
+	<td> <%=u['name']%></td>
+	<td> <%=u['age']%></td>
+	<td> <%=u['gender']%></td>
+	<td> <%=u['mobile']%></td>
+	<td> <%=u['address']%></td>
+</tr>
+<%end%>
+</table>
+<a href = "<%=root_path%>"> Home</a>

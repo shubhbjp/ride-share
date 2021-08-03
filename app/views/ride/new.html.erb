@@ -1,0 +1,61 @@
+<form action="<%=offer_ride_create_path%>" accept-charset="UTF-8" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+  <div>
+    <label for="vehicle">Select Vehicle Registration Number</label>
+    <select id="vehicle_no" onchange="on_select_vehicle()" name="vehicle_no">
+      <%@vehicles_list.keys.each do |v|%> 
+        <option><%=v%></option>
+      <%end%>
+    </select>
+  </div>
+  <br>
+  <div id="ride_offer">
+  </div>
+  <br>
+  <div id="vehicle_details">
+  </div>
+  <br>
+  <div>
+    <label>From Place</label>
+    <input type="text" name="src" required>
+  </div>
+  <br>
+  <div>
+    <label>To Place</label>
+    <input type="text" name="dest" required>
+  </div>
+  <br>
+  <div>
+    <label>Available Seats</label>
+     <input type="number" id="available_seats" name="available_seats" onchange="validate_available_seats()" required>
+  </div>
+  <br>
+  <div>
+    <input type="submit" name="commit" value="Offer Ride" data-disable-with="Offer Ride">
+  </div>
+</form>
+<script type="text/javascript">
+  function validate_available_seats(){
+    document.getElementById('vehicle_details').innerHTML = 'Vehicle Details: ' + vehicle_list[v_no]['brand']
+    filled_seats = document.getElementById('available_seats').value
+    available_seats = vehicle_list[v_no]['seats']
+    if (filled_seats == ''){
+      document.getElementById('available_seats').value = available_seats
+    } else if(Number(filled_seats) > Number(available_seats)) {
+      document.getElementById('available_seats').value = available_seats
+      alert("Max Available seats "+available_seats)
+    }
+  }
+  function on_select_vehicle(){
+    document.getElementById('available_seats').value = ''
+    v_no = document.getElementById("vehicle_no").value
+    vehicle_list = JSON.parse('<%=raw @vehicles_list.to_json%>')
+    user_mobile = vehicle_list[v_no]['user_mobile']
+    user_list = JSON.parse('<%=raw @users_list.to_json%>')
+    document.getElementById('ride_offer').innerHTML = "Ride Offered By Name: "+user_list[user_mobile]['name']+", Age: "+user_list[user_mobile]['age']+", Gender: "+user_list[user_mobile]['gender']
+    validate_available_seats()
+
+  }
+  on_select_vehicle()
+</script>

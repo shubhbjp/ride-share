@@ -1,0 +1,70 @@
+<center>
+<form action="<%=ride_list_path%>" accept-charset="UTF-8" method="get">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <span style="display: inline-block; width:200px;">
+    <label>From Place</label>
+    <input type="text" name="src" value="<%=params['src']%>">
+  </span>
+  <span style="display: inline-block; width:200px;">
+    <label >To Place</label>
+    <input type="text" name="dest" value="<%=params['dest']%>">
+  </span>
+  <span style="display: inline-block; width:200px;">
+    <label >Seats</label>
+    <input type="text" name="seats" value="1">
+  </span>
+  <div>
+    <input type="submit" name="commit" value="Select Ride" data-disable-with="Select Ride">
+  </div>
+</form>
+<hr>
+<hr>
+<%if @offered_rides.present?%>
+	<% @offered_rides.each do |o| %>
+		<div style="position: relative;display: block; width: 700px;"> 
+			<%vehicle_details = session[SESSION_KEYS['vehicle_list']][o['vehicle_no']]%>
+			<%user_details = session[SESSION_KEYS['user_list']][vehicle_details['user_mobile']]%>
+			<div style="position:relative; display: inline-block; width:300px;">
+				Vehicle No: <%= vehicle_details['reg_no']%>
+				Vehicle Brand: <%= vehicle_details['brand']%>
+				AC working: <%=vehicle_details['ac']%>
+			</div>
+			<div style="position:relative; display:inline-block; width:300px;">
+				Owner Name: <%= user_details['name']%>
+				Owner Age: <%= user_details['age']%>
+				Owner Gender: <%= user_details['gender']%>
+				Owner Mobile: <%= user_details['mobile']%>
+				Owner Address: <%= user_details['address']%>
+			</div>
+			
+			<div style="position: relative;display: inline-block;width: 50px;">
+				<%= o['src']%> - <%=o['dest']%>
+				<form action="/ride/select/<%=o['id']%>" accept-charset="UTF-8" method="get">
+	  				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+				  	<div>
+				    	<label >No of Seats</label>
+				    	<input type="number" name="seats" max="2" min="1">
+				  	</div>
+				  	<div>
+				    	<label>User Mobile </label>
+				    	<%= select_tag(:user_mobile, options_for_select(@user_mobile)) %>
+				  	</div>
+					  <div>
+					    <input type="submit" name="commit" value="Select Ride" data-disable-with="Select Ride">
+					  </div>
+				</form>
+				<form action="<%=ride_end_path%>" accept-charset="UTF-8" method="get">
+	  				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+	  				<%= hidden_field_tag :id, o['id']  %>
+				  	<input type="submit" name="commit" value="End Ride" data-disable-with="End Ride">
+				</form>
+			</div>
+			<hr>
+		</div>
+	<%end%>
+<%else%>
+
+	<p>No Rides found for given route.</p>
+<%end%>
+</center>
+<a href = "<%=root_path%>"> Home</a>
